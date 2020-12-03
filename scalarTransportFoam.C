@@ -32,7 +32,8 @@ Description
 #include "fvCFD.H"
 #include "fvOptions.H"
 #include "simpleControl.H"
-
+#include "alloySystem.H"
+#include "pureSubstance.H"
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 int main(int argc, char *argv[])
@@ -44,7 +45,10 @@ int main(int argc, char *argv[])
     simpleControl simple(mesh);
 
     #include "createFields.H"
-
+	
+	// -------- ALLOY SYSTEM    ---------
+	alloySystem alloy1();
+	//alloy1.information();
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
     Info<< "\nCalculating scalar transport\n" << endl;
