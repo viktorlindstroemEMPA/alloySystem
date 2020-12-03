@@ -1,0 +1,17 @@
+#exampleCase files
+exampleCase/*
+!exampleCase/0
+!exampleCase/constant
+!exampleCase/system
+
+#Make folder
+Make/*
+!Make/files
+!Make/options
+
+# Emacs-temp files
+*~
+#SLURM files
+*.sbatch
+slurm*
+*.out
