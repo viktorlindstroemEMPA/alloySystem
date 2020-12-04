@@ -1,4 +1,4 @@
-/*---------------------------------------------------------------------------*\
+/*---------------------------------------------------------------------------* \
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
    \\    /   O peration     | Website:  https://openfoam.org
@@ -32,7 +32,8 @@ Description
 #include "fvCFD.H"
 #include "fvOptions.H"
 #include "simpleControl.H"
-#include "alloySystem.H"
+#include "testClass.H"
+//#include "alloySystem.H"
 #include "pureSubstance.H"
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -46,11 +47,9 @@ int main(int argc, char *argv[])
 
     #include "createFields.H"
 	
-	// -------- ALLOY SYSTEM    ---------
-	alloySystem alloy1();
-	//alloy1.information();
+    
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
+    /*
     Info<< "\nCalculating scalar transport\n" << endl;
 
     #include "CourantNo.H"
@@ -80,7 +79,7 @@ int main(int argc, char *argv[])
     }
 
     Info<< "End\n" << endl;
-
+    */
     return 0;
 }
 

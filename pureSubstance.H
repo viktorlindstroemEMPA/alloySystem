@@ -4,39 +4,62 @@
 #include "word.H"
 #include "dimensionedScalar.H"
 #include "IOdictionary.H"
+#include "fvMesh.H"
 
 using namespace Foam;
 
 class pureSubstance{
-	IOdictionary speciesDictionary;
-	public:
-		// CONSTRUCTOR
-		//pureSubstance(word NAME, const fileName& instance, const objectRegistry& registry); // set up from dictionary 
-		pureSubstance(word, const fileName&, const objectRegistry&); // set up from dictionary 
-		// PUBLIC VARIABLES
-		word name = "H";
-		dimensionedScalar Tm = dimensionedScalar("Tm",dimensionSet(0,0,0,1,0,0,0),14);
-		// SETTERS
-		// GETTERS
-		// CALCULATIONS
+public:
+  // CONSTRUCTOR
+  pureSubstance();
+  pureSubstance(word, fvMesh& mesh_, Time& runTime_);
+  // PUBLIC VARIABLES
+  word name = "H";
+  dimensionedScalar Tm = dimensionedScalar("Tm",dimensionSet(0,0,0,1,0,0,0),14);
+  dimensionedScalar Tv = dimensionedScalar("Tv",dimensionSet(0,0,0,1,0,0,0),20.3);
+  // SETTERS
+  // GETTERS
+  // MEMBER FUNCTIONS
+  void info();
+  
 };
 
-pureSubstance::pureSubstance(word NAME,const fileName& instance, const objectRegistry& registry){
-	name = NAME;
-	// Read and set properties from dictionary of name SPECIE
-	speciesDictionary = IOdictionary
-	(
-		IOobject
-		(
-			NAME,
-			instance,
-			registry,
-			IOobject::MUST_READ_IF_MODIFIED,
-			IOobject::NO_WRITE
-		)
-	);
+pureSubstance::pureSubstance()
+{
+  Info << "Set substance to default, Hydrogen..." << endl;
+  info();
 }
 
+pureSubstance::pureSubstance(word name_, fvMesh& mesh_, Time& runTime_)
+{
+  name = name_;
+  // Read and set properties from dictionary of name SPECIE
+  IOdictionary speciesDictionary
+	(
+     IOobject
+     (
+      name,
+      runTime_.time().constant(),
+      mesh_,
+      IOobject::MUST_READ,
+      IOobject::NO_WRITE
+      )
+     );
+  // Read values
+  Tm = speciesDictionary.lookup("Tm");
+  Tv = speciesDictionary.lookup("Tv");
+
+  // Output
+  Info << "Read from dictionary " << endl;
+  info();
+}
+
+void pureSubstance::info()
+{
+  Info << name << ": " << endl;
+  Info << "\tTm:\t " << Tm.value() << " K" << endl;
+  Info << "\tTv:\t " << Tv.value() << " K" << endl; 
+}
 
 
 #endif
